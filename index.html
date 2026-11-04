@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personalised online fitness coaching with a practical, sustainable plan." />
+  <title>Zubair Fitness Coaching | Transform with a Plan</title>
+  <style>
+    :root {
+      --bg: #10120f;
+      --panel: #191d18;
+      --panel-2: #20251e;
+      --text: #f4f6ef;
+      --muted: #aeb6a8;
+      --accent: #c5f36b;
+      --accent-dark: #9fc94c;
+      --line: rgba(255,255,255,.11);
+      --radius: 20px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .topbar { padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .nav { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+    .brand { font-weight: 900; letter-spacing: -.04em; font-size: 1.25rem; }
+    .brand span { color: var(--accent); }
+    .navlinks { display:flex; align-items:center; gap:24px; color:var(--muted); font-size:.92rem; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      background:var(--accent); color:#151910; border:0; border-radius:999px;
+      padding:13px 22px; font-weight:800; cursor:pointer; transition:.2s;
+    }
+    .btn:hover { background:#d5ff83; transform:translateY(-2px); }
+    .btn.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
+    .eyebrow { color:var(--accent); text-transform:uppercase; letter-spacing:.16em; font-size:.75rem; font-weight:800; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { font-size:clamp(2.8rem, 6vw, 5.4rem); line-height:1.02; letter-spacing:-.065em; margin:18px 0 22px; }
+    h2 { font-size:clamp(2rem, 4vw, 3.2rem); line-height:1.08; letter-spacing:-.045em; margin-bottom:16px; }
+    h3 { line-height:1.2; }
+    .muted { color:var(--muted); }
+    .hero { padding:78px 0 72px; }
+    .hero-grid { display:grid; grid-template-columns:1.08fr .92fr; gap:54px; align-items:center; }
+    .hero-copy p { max-width:590px; font-size:1.08rem; color:var(--muted); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin:28px 0 30px; }
+    .stats { display:flex; gap:28px; flex-wrap:wrap; }
+    .stat strong { display:block; font-size:1.45rem; color:var(--accent); }
+    .stat span { color:var(--muted); font-size:.82rem; }
+    .hero-image { min-height:520px; border-radius:28px; overflow:hidden; position:relative; background:#252b21; }
+    .hero-image img { width:100%; height:520px; object-fit:cover; opacity:.86; }
+    .image-note { position:absolute; bottom:20px; left:20px; right:20px; padding:17px 19px; border:1px solid var(--line); border-radius:16px; background:rgba(15,18,14,.82); backdrop-filter:blur(12px); }
+    .image-note strong { color:var(--accent); display:block; }
+    section { padding:76px 0; }
+    .section-head { max-width:680px; margin-bottom:34px; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:42px; align-items:center; }
+    .coach-card, .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:28px; }
+    .coach-card { display:flex; gap:22px; align-items:flex-start; }
+    .coach-avatar { width:82px; height:82px; flex:0 0 82px; border-radius:18px; overflow:hidden; background:var(--panel-2); }
+    .coach-avatar img { width:100%; height:100%; object-fit:cover; }
+    .steps, .cards, .testimonials { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card .number { color:var(--accent); font-weight:900; font-size:.82rem; letter-spacing:.1em; }
+    .card p { color:var(--muted); margin-bottom:0; }
+    .mistakes { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .mistake { display:flex; gap:14px; padding:18px; border-radius:16px; background:var(--panel); border:1px solid var(--line); }
+    .check { color:var(--accent); font-size:1.25rem; font-weight:900; }
+    .program { position:relative; overflow:hidden; }
+    .program .price { font-size:2rem; font-weight:900; color:var(--accent); margin:18px 0; }
+    .program ul { padding-left:19px; color:var(--muted); }
+    .testimonial-card { background:var(--panel); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+    .testimonial-card img { width:100%; height:260px; object-fit:cover; background:var(--panel-2); }
+    .testimonial-body { padding:20px; }
+    .testimonial-body p { color:var(--muted); font-size:.93rem; }
+    .testimonial-body strong { display:block; }
+    .testimonial-body small { color:var(--accent); }
+    .placeholder-image { height:260px; display:grid; place-items:center; color:var(--muted); background:var(--panel-2); padding:20px; text-align:center; }
+    .faq-list { display:grid; gap:12px; }
+    details { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+    summary { cursor:pointer; font-weight:750; }
+    details p { margin:12px 0 0; color:var(--muted); }
+    .lead-section { background:linear-gradient(135deg,#20271b,#151912); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .lead-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:40px; align-items:start; }
+    .form { background:#f5f7ef; color:#171b14; border-radius:22px; padding:26px; }
+    .form h3 { font-size:1.45rem; margin-bottom:6px; }
+    .form p { color:#596151; font-size:.9rem; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+    .field { display:flex; flex-direction:column; gap:6px; }
+    .field.full { grid-column:1/-1; }
+    label { font-size:.82rem; font-weight:750; }
+    input,select,textarea { width:100%; padding:13px 14px; border-radius:10px; border:1px solid #d5dacd; background:white; color:#171b14; font:inherit; outline:none; }
+    input:focus,select:focus,textarea:focus { border-color:#769d37; box-shadow:0 0 0 3px rgba(118,157,55,.14); }
+    .form .btn { width:100%; margin-top:16px; }
+    .form-note { font-size:.75rem !important; margin:12px 0 0; }
+    .form-status { margin-top:12px; font-size:.86rem; font-weight:700; color:#42651b; }
+    footer { padding:34px 0; color:var(--muted); font-size:.88rem; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+    .footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+    /* Popup */
+    .popup-overlay { display:none; position:fixed; inset:0; z-index:99; background:rgba(0,0,0,.76); padding:20px; align-items:center; justify-content:center; }
+    .popup-overlay.show { display:flex; }
+    .popup { width:min(520px,100%); max-height:92vh; overflow:auto; position:relative; animation:pop .25s ease; }
+    @keyframes pop { from { opacity:0; transform:translateY(14px) scale(.98); } to { opacity:1; transform:none; } }
+    .popup-close { position:absolute; top:13px; right:13px; z-index:2; width:36px; height:36px; border:0; border-radius:50%; background:#e5e9df; color:#171b14; font-size:1.3rem; cursor:pointer; }
+    @media(max-width:850px) {
+      .hero-grid,.two-col,.lead-grid { grid-template-columns:1fr; }
+      .hero { padding-top:52px; }
+      .hero-image,.hero-image img { min-height:360px; height:360px; }
+      .steps,.cards,.testimonials { grid-template-columns:1fr 1fr; }
+      .navlinks { display:none; }
+    }
+    @media(max-width:560px) {
+      .container { width:min(100% - 28px,var(--max)); }
+      section { padding:56px 0; }
+      .steps,.cards,.testimonials,.mistakes,.form-grid { grid-template-columns:1fr; }
+      .field.full { grid-column:auto; }
+      .coach-card { flex-direction:column; }
+      .stats { gap:18px; }
+      .hero-image,.hero-image img { min-height:310px; height:310px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- =========================================================
+       EDITABLE CONTENT: Change values in this CONFIG section.
+       You do NOT need to edit the layout/CSS for normal updates.
+       ========================================================= -->
+  <script>
+    const CONFIG = {
+      // BRAND / COACH DETAILS
+      brandName: "Zubair Fitness",
+      coachName: "Zubair",
+      coachRole: "Online Fitness Consultant",
+      experienceYears: "6",
+      heroHeadline: "Build a stronger body. Build a better routine.",
+      heroDescription: "Personalised fitness coaching built around your goals, schedule and lifestyle — without crash diets or confusing routines.",
+      heroImageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=85",
+      coachImageUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=85",
+
+      // CHANGE THIS WHEN YOU UPDATE A CLIENT / OFFER / CAMPAIGN
+      currentProgramName: "12-Week Transformation",
+      programStartDate: "2026-12-01",
+      programEndDate: "2027-02-23",
+      programPrice: "₹4,999",
+      programDescription: "A structured 12-week coaching plan to help you build consistency, improve strength and work towards a healthier body.",
+
+      // CONTACT / SOCIAL LINKS
+      whatsappNumber: "919876543210", // country code + number, no + or spaces
+      instagramUrl: "https://www.instagram.com/yourusername/",
+      instagramHandle: "@yourusername",
+      email: "hello@example.com",
+
+      // FORM INTEGRATION:
+      // Paste your Google Apps Script Web App URL here to send leads to Google Sheets.
+      // Leave blank for demo mode. Do not paste a normal Google Sheet URL here.
+      googleSheetsWebhookUrl: "",
+
+      // POPUP: set to false if you want to disable the timed popup.
+      popupEnabled: true,
+      popupDelayMs: 3000,
+
+      // TESTIMONIALS: Paste a direct public image URL in imageUrl.
+      // Use an image-hosting direct image link (usually ends in .jpg/.png/.webp).
+      // Add/remove testimonial objects as needed. Set imageUrl: "" to show text only.
+      testimonials: [
+        {
+          name: "Client Name 1",
+          result: "12-week progress",
+          quote: "The plan was practical and easy to follow with my daily schedule.",
+          imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85"
+        },
+        {
+          name: "Client Name 2",
+          result: "Strength & consistency",
+          quote: "I finally understood how to train and eat consistently instead of following random advice.",
+          imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85"
+        },
+        {
+          name: "Client Name 3",
+          result: "Lifestyle improvement",
+          quote: "The guidance helped me make fitness a sustainable part of my routine.",
+          imageUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85"
+        }
+      ]
+    };
+  </script>
+
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#"><span id="brandNameNav">ZUBAIR</span><span>.</span></a>
+      <nav class="navlinks">
+        <a href="#about">About</a><a href="#method">Method</a><a href="#programs">Coaching</a><a href="#results">Testimonials</a><a href="#faq">FAQs</a>
+      </nav>
+      <a class="btn" href="#apply">Apply for Coaching</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Personalised online fitness coaching</div>
+          <h1 id="heroHeadline">Build a stronger body. Build a better routine.</h1>
+          <p id="heroDescription"></p>
+          <div class="hero-actions">
+            <a class="btn" href="#apply">Start Your Transformation <span>↗</span></a>
+            <a class="btn secondary" href="#method">See How It Works</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong><span id="experienceYears">6</span>+</strong><span>Years of experience</span></div>
+            <div class="stat"><strong>1:1</strong><span>Personal guidance</span></div>
+            <div class="stat"><strong>100%</strong><span>Goal-focused plan</span></div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img id="heroImage" src="" alt="Fitness training environment" />
+          <div class="image-note"><strong id="coachNameHero">Zubair</strong><span id="coachRoleHero">Online Fitness Consultant</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container two-col">
+        <div>
+          <div class="eyebrow">Meet your coach</div>
+          <h2>Fitness advice should fit your real life.</h2>
+          <p class="muted">A successful transformation is not built on extreme routines. It comes from the right training, realistic nutrition and consistency. Your plan should work with your lifestyle — not against it.</p>
+          <a class="btn" href="#apply">Talk About Your Goal</a>
+        </div>
+        <div class="coach-card">
+          <div class="coach-avatar"><img id="coachImage" src="" alt="Coach profile" /></div>
+          <div>
+            <h3 id="coachNameAbout">Zubair</h3>
+            <div class="eyebrow" id="coachRoleAbout">Online Fitness Consultant</div>
+            <p class="muted" style="margin:10px 0 0">With <strong id="experienceText">6 years</strong> in the fitness industry, the focus is on practical coaching, proper technique and habits you can maintain long-term.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">The coaching method</div><h2>A clear plan. A process you can follow.</h2><p class="muted">No random workouts or one-size-fits-all diet charts. Your coaching starts with understanding where you are and where you want to go.</p></div>
+        <div class="steps">
+          <article class="card"><div class="number">STEP 01</div><h3>Understand your goal</h3><p>We discuss your current routine, experience, schedule, food preferences and target.</p></article>
+          <article class="card"><div class="number">STEP 02</div><h3>Build your plan</h3><p>Get a practical training and nutrition structure designed around your lifestyle.</p></article>
+          <article class="card"><div class="number">STEP 03</div><h3>Track and improve</h3><p>Review progress, solve challenges and make sensible adjustments as you move forward.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">What holds people back</div><h2>Stop guessing. Start following a system.</h2><p class="muted">If any of these sound familiar, a structured approach can help you move forward.</p></div>
+        <div class="mistakes">
+          <div class="mistake"><span class="check">✓</span><div><strong>Random workouts</strong><div class="muted">A planned progression gives your training direction.</div></div></div>
+          <div class="mistake"><span class="check">✓</span><div><strong>Confusing diet advice</strong><div class="muted">Build nutrition around your needs and food preferences.</div></div></div>
+          <div class="mistake"><span class="check">✓</span><div><strong>Inconsistent routine</strong><div class="muted">Create habits that work with your real schedule.</div></div></div>
+          <div class="mistake"><span class="check">✓</span><div><strong>No progress tracking</strong><div class="muted">Use regular check-ins to understand what is working.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Coaching programme</div><h2>Get a plan built around your next goal.</h2><p class="muted">Programme details below are editable demo content. Update the name, dates, price and description in the CONFIG section.</p></div>
+        <div class="cards">
+          <article class="card program">
+            <div class="eyebrow">Featured programme</div><h3 id="programName">12-Week Transformation</h3>
+            <div class="price" id="programPrice">₹4,999</div>
+            <p class="muted" id="programDescription"></p>
+            <p><strong>Batch dates:</strong> <span id="programDates"></span></p>
+            <ul><li>Personalised workout structure</li><li>Practical nutrition guidance</li><li>Progress review and adjustments</li><li>Accountability and support</li></ul>
+            <a class="btn" href="#apply">Apply Now</a>
+          </article>
+          <article class="card program">
+            <div class="eyebrow">Personal coaching</div><h3>1:1 Online Consultation</h3>
+            <div class="price">Let’s Discuss</div>
+            <p class="muted">For people who want to discuss their goals and understand the right coaching approach before getting started.</p>
+            <ul><li>Goal and routine discussion</li><li>Training and nutrition direction</li><li>Recommended next steps</li></ul>
+            <a class="btn secondary" href="#apply">Request a Call</a>
+          </article>
+          <article class="card program">
+            <div class="eyebrow">Not sure yet?</div><h3>Start with a conversation</h3>
+            <div class="price">Free enquiry</div>
+            <p class="muted">Share your goal and current situation. The team can help you understand whether the programme is a good fit.</p>
+            <ul><li>No pressure to join</li><li>Discuss your questions</li><li>Understand the process</li></ul>
+            <a class="btn secondary" href="#apply">Ask a Question</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Client stories</div><h2>Progress built through consistency.</h2><p class="muted">Replace these sample cards with genuine client testimonials and approved images before publishing. Do not present demo testimonials as real client results.</p></div>
+        <div class="testimonials" id="testimonialGrid"></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container two-col">
+        <div><div class="eyebrow">FAQs</div><h2>Questions before you begin?</h2><p class="muted">Here are a few common questions. Edit these answers in the HTML whenever your coaching process changes.</p></div>
+        <div class="faq-list">
+          <details><summary>Do I need gym experience?</summary><p>No. Your starting point and experience level are considered while planning your routine.</p></details>
+          <details><summary>Will I get a personalised diet plan?</summary><p>Nutrition guidance is built around your goals, food preferences, routine and practical requirements.</p></details>
+          <details><summary>Can I follow the plan with a busy schedule?</summary><p>The aim is to create a realistic structure that fits your available time and daily routine.</p></details>
+          <details><summary>How do I get started?</summary><p>Submit the enquiry form. The coach can review your details and contact you to discuss the next step.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="lead-section" id="apply">
+      <div class="container lead-grid">
+        <div><div class="eyebrow">Your next step</div><h2>Tell us what you want to achieve.</h2><p class="muted">Fill in the short form. Share your goal and current situation so the coaching team can understand how to guide you.</p><p class="muted">You can also reach out on WhatsApp or Instagram.</p><a class="btn" id="whatsappLink" href="#" target="_blank" rel="noopener">Chat on WhatsApp ↗</a></div>
+        <form class="form lead-form">
+          <h3>Apply for coaching</h3><p>Complete the details below. All fields marked * are required.</p>
+          <div class="form-grid">
+            <div class="field"><label for="mainName">Full name *</label><input id="mainName" name="name" required placeholder="Your name" /></div>
+            <div class="field"><label for="mainPhone">WhatsApp number *</label><input id="mainPhone" name="phone" required type="tel" placeholder="Your number" /></div>
+            <div class="field"><label for="mainGoal">Primary goal *</label><select id="mainGoal" name="goal" required><option value="">Select your goal</option><option>Fat loss</option><option>Muscle gain</option><option>Strength</option><option>General fitness</option><option>Body recomposition</option></select></div>
+            <div class="field"><label for="mainExperience">Training experience *</label><select id="mainExperience" name="experience" required><option value="">Select experience</option><option>Beginner</option><option>3–12 months</option><option>1–3 years</option><option>3+ years</option></select></div>
+            <div class="field full"><label for="mainMessage">Anything else we should know?</label><textarea id="mainMessage" name="message" rows="3" placeholder="Your routine, challenges or questions..."></textarea></div>
+          </div>
+          <button class="btn" type="submit">Submit Enquiry</button>
+          <p class="form-note">Demo template: connect a Google Sheets webhook in CONFIG to receive real enquiries.</p><div class="form-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="yearNow"></span> <strong id="footerBrand">Zubair Fitness</strong>. All rights reserved.</div>
+      <div class="footer-links"><a id="instagramLink" href="#" target="_blank" rel="noopener">Instagram</a><a id="emailLink" href="#">Email</a><a href="#apply">Enquire</a></div>
+    </div>
+  </footer>
+
+  <!-- Timed lead popup: delay is controlled by CONFIG.popupDelayMs -->
+  <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div class="popup">
+      <button class="popup-close" id="popupClose" aria-label="Close popup">×</button>
+      <form class="form lead-form">
+        <div class="eyebrow">A quick first step</div><h3 id="popupTitle">What’s your fitness goal?</h3>
+        <p>Share a few details and we’ll help you understand the right next step.</p>
+        <div class="form-grid">
+          <div class="field full"><label for="popName">Full name *</label><input id="popName" name="name" required placeholder="Your name" /></div>
+          <div class="field full"><label for="popPhone">WhatsApp number *</label><input id="popPhone" name="phone" required type="tel" placeholder="Your number" /></div>
+          <div class="field"><label for="popGoal">Primary goal *</label><select id="popGoal" name="goal" required><option value="">Select goal</option><option>Fat loss</option><option>Muscle gain</option><option>Strength</option><option>General fitness</option><option>Body recomposition</option></select></div>
+          <div class="field"><label for="popExperience">Experience *</label><select id="popExperience" name="experience" required><option value="">Select</option><option>Beginner</option><option>3–12 months</option><option>1–3 years</option><option>3+ years</option></select></div>
+        </div>
+        <button class="btn" type="submit">Get Started</button>
+        <p class="form-note">Your details are used to respond to your enquiry.</p><div class="form-status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Apply editable CONFIG values to the page.
+    const $ = (id) => document.getElementById(id);
+    $("brandNameNav").textContent = CONFIG.brandName.toUpperCase();
+    $("footerBrand").textContent = CONFIG.brandName;
+    $("heroHeadline").textContent = CONFIG.heroHeadline;
+    $("heroDescription").textContent = CONFIG.heroDescription;
+    $("experienceYears").textContent = CONFIG.experienceYears;
+    $("experienceText").textContent = CONFIG.experienceYears + " years";
+    $("coachNameHero").textContent = CONFIG.coachName;
+    $("coachNameAbout").textContent = CONFIG.coachName;
+    $("coachRoleHero").textContent = CONFIG.coachRole;
+    $("coachRoleAbout").textContent = CONFIG.coachRole;
+    $("heroImage").src = CONFIG.heroImageUrl;
+    $("coachImage").src = CONFIG.coachImageUrl;
+    $("programName").textContent = CONFIG.currentProgramName;
+    $("programPrice").textContent = CONFIG.programPrice;
+    $("programDescription").textContent = CONFIG.programDescription;
+    $("programDates").textContent = CONFIG.programStartDate + " to " + CONFIG.programEndDate;
+    $("yearNow").textContent = new Date().getFullYear();
+    $("whatsappLink").href = "https://wa.me/" + CONFIG.whatsappNumber;
+    $("instagramLink").href = CONFIG.instagramUrl;
+    $("instagramLink").textContent = CONFIG.instagramHandle;
+    $("emailLink").href = "mailto:" + CONFIG.email;
+
+    // Render testimonial cards from the CONFIG list.
+    const testimonialGrid = $("testimonialGrid");
+    CONFIG.testimonials.forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "testimonial-card";
+      if (item.imageUrl && item.imageUrl.trim()) {
+        const img = document.createElement("img");
+        img.src = item.imageUrl;
+        img.alt = "Testimonial image for " + item.name;
+        img.loading = "lazy";
+        img.onerror = () => { img.replaceWith(makePlaceholder()); };
+        card.appendChild(img);
+      } else {
+        card.appendChild(makePlaceholder());
+      }
+      const body = document.createElement("div");
+      body.className = "testimonial-body";
+      const quote = document.createElement("p");
+      quote.textContent = "“" + item.quote + "”";
+      const name = document.createElement("strong");
+      name.textContent = item.name;
+      const result = document.createElement("small");
+      result.textContent = item.result;
+      body.append(quote, name, result);
+      card.appendChild(body);
+      testimonialGrid.appendChild(card);
+    });
+    function makePlaceholder() {
+      const div = document.createElement("div");
+      div.className = "placeholder-image";
+      div.textContent = "Add a public testimonial image URL in the CONFIG section";
+      return div;
+    }
+
+    // Close popup helpers.
+    const popupOverlay = $("popupOverlay");
+    function closePopup() { popupOverlay.classList.remove("show"); }
+    $("popupClose").addEventListener("click", closePopup);
+    popupOverlay.addEventListener("click", (event) => { if (event.target === popupOverlay) closePopup(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closePopup(); });
+
+    // Show once per browser session after the configured delay.
+    if (CONFIG.popupEnabled && !sessionStorage.getItem("fitnessPopupSeen")) {
+      window.setTimeout(() => {
+        if (!sessionStorage.getItem("fitnessPopupSeen")) {
+          popupOverlay.classList.add("show");
+          sessionStorage.setItem("fitnessPopupSeen", "yes");
+        }
+      }, Number(CONFIG.popupDelayMs) || 3000);
+    }
+
+    // Both forms share the same submission handler.
+    // To activate Google Sheets, deploy an Apps Script Web App and paste its URL
+    // into CONFIG.googleSheetsWebhookUrl. The endpoint should accept JSON POST.
+    document.querySelectorAll(".lead-form").forEach((form) => {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.source = form.closest("#popupOverlay") ? "Timed popup" : "Main page form";
+        data.submittedAt = new Date().toISOString();
+        data.program = CONFIG.currentProgramName;
+        const status = form.querySelector(".form-status");
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.textContent = "Submitting...";
+        try {
+          if (CONFIG.googleSheetsWebhookUrl) {
+            await fetch(CONFIG.googleSheetsWebhookUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+            status.textContent = "Thank you! Your enquiry has been submitted.";
+          } else {
+            console.log("DEMO LEAD — connect Google Sheets webhook to receive this enquiry:", data);
+            status.textContent = "Demo submission received in this browser. Connect Google Sheets to collect real leads.";
+          }
+          form.reset();
+        } catch (error) {
+          console.error(error);
+          status.textContent = "Something went wrong. Please contact us on WhatsApp.";
+        } finally {
+          button.disabled = false;
+          button.textContent = form.closest("#popupOverlay") ? "Get Started" : "Submit Enquiry";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
